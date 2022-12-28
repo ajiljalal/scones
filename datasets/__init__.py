@@ -7,6 +7,8 @@ from datasets.ffhq import FFHQ
 from datasets.gaussian import Gaussian
 from torch.utils.data import Subset
 import numpy as np
+from datasets.mri import SKM_TEA_MRI
+import glob
 
 
 def get_dataset(args, config):
@@ -269,7 +271,7 @@ def get_dataset(args, config):
         else:
             cov = np.array(config.data.cov)
             mean = np.array(config.data.mean)
-        
+
         shape = config.data.dataset.shape if hasattr(config.data.dataset, "shape") else None
 
         dataset = Gaussian(device=args.device, cov=cov, mean=mean, shape=shape)
@@ -293,6 +295,24 @@ def get_dataset(args, config):
         shape = config.data.shape if hasattr(config.data, "shape") else None
         dataset = Gaussian(device=args.device, mean=None, cov=None, shape=shape, iid_unit=True)
         test_dataset = Gaussian(device=args.device, mean=None, cov=None, shape=shape, iid_unit=True)
+
+    elif(config.data.dataset.upper() in ['T1','T2']):
+
+        target_files = glob.glob(os.path.join(config.data.folder, '*.h5'))
+        if config.data.dataset.upper() == 'T1':
+            dataset = SKM_TEA_MRI(target_files, echoes=0)
+        else:
+            dataset = SKM_TEA_MRI(target_files, echoes=1)
+
+        num_items = len(dataset)
+        indices = list(range(num_items))
+        random_state = np.random.get_state()
+        np.random.seed(2022)
+        np.random.shuffle(indices)
+        np.random.set_state(random_state)
+        train_indices, test_indices = indices[:int(num_items * 0.9)], indices[int(num_items * 0.9):]
+        test_dataset = Subset(dataset, test_indices)
+        dataset = Subset(dataset, train_indices)
 
     return dataset, test_dataset
 
