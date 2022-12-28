@@ -25,8 +25,8 @@ The general template for using these files is
 
 The name `<name-for-output>` will be used as a label for experimental artifacts saved to disk. The config file `<cnf>.yml` must be located in the `config` subdirectory of the top level folder corresponding to `<file>.py`.
 
-For example, to train a compatibility function for transportation from blurry CelebA to CelebA, one could use
+For example, to train a compatibility function for transportation from T1 to T2, one could use
 
-`python cpat.py --doc celeba-superres --config superres_KL_0.005.yml`
+`python cpat.py --doc T1-T2 --config T1_T2_KL_0.005.yml`
 
-This corresponds to the configuration file located in `compatibility/configs/superres_KL_0.005.yml`, where one can customize the experiment or view its fine-grained details.
+This corresponds to the configuration file located in `compatibility/configs/T1_T2_KL_0.005.yml`, where one can customize the experiment or view its fine-grained details.
