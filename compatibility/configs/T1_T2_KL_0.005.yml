@@ -47,7 +47,7 @@ target:
 training:
   batch_size: 1000
   n_iters: 5001
-  snapshot_freq: 5000
+  snapshot_freq: 500
 transport:
   coeff: 0.005
   cost: mean-l2-sq
