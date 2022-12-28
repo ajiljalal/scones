@@ -8,7 +8,9 @@ This repository contains code for running large scale experiments, such as those
 ## Setup
 The required packages can be found in `requirements.txt`. To create a new conda environment with these packages installed, use
 
-`conda create --name <env> --file requirements.txt`.
+`conda create --name <env> python=3.8`
+`pip install -r requirements.txt`
+`pip install torch==1.8.1+cu101 torchvision==0.9.1+cu101 torchaudio==0.8.1 -f https://download.pytorch.org/whl/torch_stable.html`
 
 ## Running the code
 There are four main entry points, each dedicated to training and evaluating four different 'types' of models.
