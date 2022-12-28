@@ -1,5 +1,5 @@
-from facenet_pytorch import InceptionResnetV1
-import pytorch_msssim
+# from facenet_pytorch import InceptionResnetV1
+# import pytorch_msssim
 import torch.nn as nn
 import torch
 from datasets import inverse_data_transform
